@@ -14,7 +14,7 @@ router.use((req, res, next) => {
   });
 
 
-router.get("/", (req,res) =>{
+router.get("/y/d", (req,res) =>{
     res.json({"message":"Broken Link"})
 })
 
@@ -23,7 +23,7 @@ router.post("/y/register", register)
 router.post("/y/allListings", Listings)
  
 
-router.get("*", (req, res)=> {
-    res.redirect('/')
+router.get("/*/", (req, res)=> {
+    res.redirect('/y/d')
 })
 module.exports = router
