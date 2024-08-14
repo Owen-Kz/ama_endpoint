@@ -2,6 +2,7 @@ const express = require("express");
 const login_user = require("../controllers/login");
 const register = require("../controllers/register");
 const Listings = require("../controllers/allListings");
+const getProductInfo = require("../controllers/productInfo");
 const router = express.Router();
 router.use(express.json());
 
@@ -21,6 +22,7 @@ router.get("/y/d", (req,res) =>{
 router.post("/*/login", login_user)
 router.post("/y/register", register)
 router.post("/y/allListings", Listings)
+router.post("/y/productInfo/:id", getProductInfo)
  
 
 router.get("/*/", (req, res)=> {
