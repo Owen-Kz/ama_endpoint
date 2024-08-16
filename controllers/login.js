@@ -14,7 +14,7 @@ const login_user = async (req, res) => {
     else{ 
  
     try{
-       db.query('SELECT * FROM user_info WHERE (u_name = ? OR email =?) AND (account_status = "1" OR account_status = "3")', [user, user], async (Err, result) => {
+       db.query('SELECT * FROM users WHERE (u_name = ? OR email =?) ', [user, user], async (Err, result) => {
             if(Err) throw Err
             if(!result[0]) return res.json({ status: "error", error: "Incorrect username / password combination"})
 
@@ -38,7 +38,8 @@ const login_user = async (req, res) => {
                 // save cookie 
              
                 res.cookie("userRegistered", token, cookieOptions)
-                return res.json({ status: "success", success: "User Logged in"});
+                res.cookie("uid",result[0].id, cookieOptions)
+                return res.json({ status: "success", success: "User Logged in", userToken: token, userId:result[0].id});
             }else{
                 return res.json({ status: "error", error: "Incorrect username / password combination"})
             }

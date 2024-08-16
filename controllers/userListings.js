@@ -1,12 +1,12 @@
 const db = require("../routes/db.config")
 
-const Listings = async (req,res) =>{
-    const {page} = req.body
+const UserListings = async (req,res) =>{
+    const {page, uid} = req.body
     const items_per_page = 64
     const OFFSET  = (page - 1) * items_per_page
     // const offset = (page - 1) * ITEMS_PER_PAGE; 
     let totalPages = 0
-    db.query("SELECT COUNT(*) AS sumListings FROM listings WHERE status = 'approved'", (err, CountResult) => {
+    db.query("SELECT COUNT(*) AS sumListings FROM listings WHERE user_id = ?", [uid], (err, CountResult) => {
         if (err) {
           console.error(err);
           return res.status(500).send("Internal Server Error");
@@ -15,7 +15,7 @@ const Listings = async (req,res) =>{
         totalPages = Math.ceil(Count / items_per_page);
     })
   
-    db.query("SELECT * FROM listings WHERE status = 'approved' ORDER BY id DESC LIMIT ? OFFSET ?",[items_per_page, OFFSET], async (err,result)=>{
+    db.query('SELECT * FROM listings WHERE user_id = ? ORDER BY id DESC LIMIT ? OFFSET ?',[uid, items_per_page, OFFSET], async (err,result)=>{
         if(err){
             // throw err
            return res.json({error:err})
@@ -32,4 +32,4 @@ const Listings = async (req,res) =>{
     })
 }
 
-module.exports = Listings
+module.exports = UserListings
