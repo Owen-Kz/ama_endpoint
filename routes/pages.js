@@ -5,6 +5,7 @@ const Listings = require("../controllers/allListings");
 const getProductInfo = require("../controllers/productInfo");
 const LoggedIn = require("../controllers/loggedIn");
 const UserListings = require("../controllers/userListings");
+const sellerInfo = require("../controllers/sellerInfo");
 const router = express.Router();
 router.use(express.json());
 
@@ -27,6 +28,7 @@ router.post("/y/allListings", Listings)
 router.post("/y/productInfo/:id", getProductInfo)
 router.post("/y/loggedIn", LoggedIn)
 router.post("/y/userListings/:uid", UserListings)
+router.post("/y/sellerInfo/", sellerInfo)
 
 router.get("/*/", (req, res)=> {
     res.redirect('/y/d')

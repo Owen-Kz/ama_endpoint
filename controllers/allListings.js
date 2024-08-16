@@ -2,7 +2,7 @@ const db = require("../routes/db.config")
 
 const Listings = async (req,res) =>{
     const {page} = req.body
-    const items_per_page = 64
+    const items_per_page = 20
     const OFFSET  = (page - 1) * items_per_page
     // const offset = (page - 1) * ITEMS_PER_PAGE; 
     let totalPages = 0
