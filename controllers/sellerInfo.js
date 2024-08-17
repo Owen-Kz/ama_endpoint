@@ -6,7 +6,6 @@ const sellerInfo = async (req,res) =>{
    
   try {
     // Decrypt the cookie and retrieve user data with the id
-
     db.query("SELECT u_name, email, created_at, updated_at, name, phone, country, email_verified_at, fb, twitter, flickr, insta, ytube, vimeo, behance, linkd, web, l_name, pp FROM users WHERE id = ? ", [id], (err, result) => {
       if (err) {
         console.log(err);
