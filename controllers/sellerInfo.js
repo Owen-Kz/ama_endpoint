@@ -2,7 +2,6 @@ const db = require("../routes/db.config");
 
 const sellerInfo = async (req,res) =>{
    const {id} = req.body
-   console.log(id)
    
   try {
     // Decrypt the cookie and retrieve user data with the id
