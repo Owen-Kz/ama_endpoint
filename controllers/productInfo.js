@@ -2,7 +2,9 @@ const db = require("../routes/db.config")
 
 const getProductInfo  = async (req,res) =>{
     const {id} = req.params
+
     if(id){
+      console.log(id)
     db.query('SELECT * FROM listings WHERE id = ?', [id], async (err, result)=>{
         if(err) return res.json({error:err})
         if(result[0]){
@@ -21,7 +23,10 @@ const getProductInfo  = async (req,res) =>{
       
          // let SubCategories = ""
          db.query('SELECT * FROM files WHERE item_id = ?', [id], async (err, files) =>{
-        if(err) return res.json({error:err})
+        if(err){
+         console.log(err)
+          return res.json({error:err})
+        }
          if(files.length > 0){
             AllFiles = files
          }else{

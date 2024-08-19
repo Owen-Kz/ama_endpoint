@@ -9,6 +9,7 @@ const sellerInfo = require("../controllers/sellerInfo");
 const AllCategories = require("../controllers/AllCategoris");
 const myBookmarks = require("../controllers/myBookmarks");
 const countMyListings = require("../controllers/countMyListings");
+const getProductFiles = require("../controllers/getProductFiles");
 const router = express.Router();
 router.use(express.json());
 
@@ -35,6 +36,7 @@ router.post("/y/sellerInfo/", sellerInfo)
 router.post("/y/allCategories", AllCategories)
 router.post("/y/myBookmarks", myBookmarks)
 router.post("/y/countMyListings", countMyListings)
+router.post("/y/getProductFiles", getProductFiles)
  
 router.get("/*/", (req, res)=> {
     res.redirect('/y/d')
