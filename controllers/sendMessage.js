@@ -9,7 +9,6 @@ const sendMessage = async (req,res) =>{
     }else{
         limitedMessage = message
     }
-  
 
     db.query("SELECT * FROM messages WHERE message_id =?",[roomId], async (err, messageResult) =>{
         if(err){
