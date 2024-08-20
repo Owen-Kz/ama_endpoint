@@ -10,6 +10,9 @@ const AllCategories = require("../controllers/AllCategoris");
 const myBookmarks = require("../controllers/myBookmarks");
 const countMyListings = require("../controllers/countMyListings");
 const getProductFiles = require("../controllers/getProductFiles");
+const ChatList = require("../controllers/chatList");
+const sendMessage = require("../controllers/sendMessage");
+const ChatHistory = require("../controllers/messageHistory");
 const router = express.Router();
 router.use(express.json());
 
@@ -37,7 +40,9 @@ router.post("/y/allCategories", AllCategories)
 router.post("/y/myBookmarks", myBookmarks)
 router.post("/y/countMyListings", countMyListings)
 router.post("/y/getProductFiles", getProductFiles)
- 
+router.post("/y/chatList", ChatList)
+router.post("/y/sendMessage", sendMessage)
+router.post("/y/chatHistory", ChatHistory)
 router.get("/*/", (req, res)=> {
     res.redirect('/y/d')
 })
