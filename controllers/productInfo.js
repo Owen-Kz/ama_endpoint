@@ -4,7 +4,6 @@ const getProductInfo  = async (req,res) =>{
     const {id} = req.params
 
     if(id){
-      console.log(id)
     db.query('SELECT * FROM listings WHERE id = ?', [id], async (err, result)=>{
         if(err) return res.json({error:err})
         if(result[0]){
