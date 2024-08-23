@@ -21,6 +21,10 @@ const viewItem = require("../controllers/viewItem");
 const announcements = require("../controllers/annoucements");
 const SellerListings = require("../controllers/sellerListings");
 const saveProfile = require("../controllers/saveProfile");
+const forums = require("../controllers/forums");
+const comments = require("../controllers/forumComments");
+const CreateComment = require("../controllers/createComment");
+const createForum = require("../controllers/createForum");
 const router = express.Router();
 router.use(express.json());
 
@@ -57,6 +61,11 @@ router.post("/y/bookMarkItem", bookMarkItem)
 router.post("/y/viewsCount", viewsCount)
 router.post("/y/viewItem", viewItem)
 router.post("/y/announcements", announcements)
+router.post("/y/forums", forums)
+router.post("/y/comments", comments)
+router.post("/y/CreateComment", CreateComment)
+router.post("/y/CreateForum", createForum)
+
 router.post("/y/sellerListings/:id", SellerListings)
 router.post("/y/saveProfile", saveProfile)
 
