@@ -19,6 +19,8 @@ const bookMarkItem = require("../controllers/bookMarkItem");
 const viewsCount = require("../controllers/viewsCount");
 const viewItem = require("../controllers/viewItem");
 const announcements = require("../controllers/annoucements");
+const SellerListings = require("../controllers/sellerListings");
+const saveProfile = require("../controllers/saveProfile");
 const router = express.Router();
 router.use(express.json());
 
@@ -55,6 +57,8 @@ router.post("/y/bookMarkItem", bookMarkItem)
 router.post("/y/viewsCount", viewsCount)
 router.post("/y/viewItem", viewItem)
 router.post("/y/announcements", announcements)
+router.post("/y/sellerListings/:id", SellerListings)
+router.post("/y/saveProfile", saveProfile)
 
 router.get("/*/", (req, res)=> {
     res.redirect('/y/d')

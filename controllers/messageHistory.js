@@ -11,6 +11,7 @@ const ChatHistory = async (req,res) =>{
             if(messageResult.length > 0){
                 return res.json({success:"chatHistory", messageHistory:messageResult})
             }else{
+                
                 return res.json({success:"chatHistory", messageHistory:[]})
 
             }
