@@ -29,7 +29,7 @@ const createForum = async (req,res) =>{
 
 
             }
-        })
+        }) 
     }else{
         return res.json({error:"InvalidToken"})
     }

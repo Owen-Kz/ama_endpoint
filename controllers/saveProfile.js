@@ -25,7 +25,8 @@ const saveProfile = async (req, res) => {
                 if (err) {
                     return res.json({ error: err.message });
                 }
-
+           
+                
                 if (result.affectedRows > 0) {
                     return res.json({ success: "Profile updated successfully" });
                 } else {

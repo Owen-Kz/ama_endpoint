@@ -25,6 +25,11 @@ const forums = require("../controllers/forums");
 const comments = require("../controllers/forumComments");
 const CreateComment = require("../controllers/createComment");
 const createForum = require("../controllers/createForum");
+const login_admin = require("../controllers/admin/login");
+const AdminLoggedIn = require("../controllers/admin/loggedIn");
+const countAdminListings = require("../controllers/admin/countAdminListings");
+const createAnnoucements = require("../controllers/admin/createAnnouncements");
+const AllListgins = require("../controllers/admin/allListings");
 const router = express.Router();
 router.use(express.json());
 
@@ -68,7 +73,19 @@ router.post("/y/CreateForum", createForum)
 
 router.post("/y/sellerListings/:id", SellerListings)
 router.post("/y/saveProfile", saveProfile)
+router.post("/y/allListings/:uid", AllListgins) 
 
+// For Admin 
+router.post("/y/admin/login", login_admin)
+router.post("/y/admin/loggedIn", AdminLoggedIn)
+router.post("/y/countAdminListings", countAdminListings)
+router.post("/y/admin/createAnnouncement", createAnnoucements)
+router.post("*", (req,res)=>{
+    return res.json({error:"Broken Pipe / Invalid Endpoint"})
+})
+router.get("*", (req,res)=>{
+    res.redirect("/y/d")
+})
 router.get("/*/", (req, res)=> {
     res.redirect('/y/d')
 })
