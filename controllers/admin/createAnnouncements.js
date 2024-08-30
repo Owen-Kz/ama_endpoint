@@ -4,10 +4,10 @@ const db = require("../../routes/db.config")
 
 const createAnnoucements = async (req,res) =>{
     const {topic, description, token} = req.body 
-
+    
     if(token){
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        db.query("SELECT * FROM role_users WHERE user_id =?", [decoded.id], async(err, admin) =>{
+        db.query("SELECT * FROM role_user WHERE user_id =?", [decoded.id], async(err, admin) =>{
             if(err){
                 return res.json({error:err})
             }else if(admin[0]){

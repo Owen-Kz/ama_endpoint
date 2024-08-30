@@ -4,7 +4,7 @@ const AllCategories = async (req,res) =>{
     const {email} = req.body
     if(email === "amaslink@gmail.com"){
 
-        db.query("SELECT * FROM categories WHERE 1", async (err,result) =>{
+        db.query("SELECT * FROM categories WHERE 1  ORDER BY category_name", async (err,result) =>{
             if(err) return res.json({error:err})
             if(result){
                 
