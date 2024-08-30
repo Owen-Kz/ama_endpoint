@@ -36,6 +36,7 @@ const ItemsInCat = require("../controllers/itemsInCategory");
 const allUsers = require("../controllers/admin/allUsers");
 const AllSubCategories = require("../controllers/getSubCategories");
 const PostAd = require("../controllers/postAd");
+const getTransactions = require("../controllers/admin/getTransactions");
 const router = express.Router();
 router.use(express.json());
 
@@ -77,6 +78,7 @@ router.post("/y/forums", forums)
 router.post("/y/comments", comments)
 router.post("/y/CreateComment", CreateComment)
 router.post("/y/CreateForum", createForum)
+router.post("/y/admin/getTransactions", getTransactions)
 
 router.post("/y/sellerListings/:id", SellerListings)
 router.post("/y/saveProfile", saveProfile)
