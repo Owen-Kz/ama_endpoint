@@ -3,7 +3,7 @@ const db = require("../routes/db.config");
 const PostAd = async (req, res) => {
   try {
     const { uid, title, description, thumbnail, imageFiles, videoURL, videoFile, price, category, condition, country, purpose, subCategories } = req.body;
-    console.log(req.body)
+
     db.query(
       `INSERT INTO listings SET ?`,
       [{ title, description, country, price, category, image1: thumbnail, user_id: uid, is_recent_item:"yes", condition:condition, purpose:purpose }],
