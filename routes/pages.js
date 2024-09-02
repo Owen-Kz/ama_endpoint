@@ -37,6 +37,8 @@ const allUsers = require("../controllers/admin/allUsers");
 const AllSubCategories = require("../controllers/getSubCategories");
 const PostAd = require("../controllers/postAd");
 const getTransactions = require("../controllers/admin/getTransactions");
+const sendEmail = require("../controllers/sendEmail");
+const sentEmails = require("../controllers/sentEmails");
 const router = express.Router();
 router.use(express.json());
 
@@ -94,6 +96,8 @@ router.post("/y/admin/createAnnouncement", createAnnoucements)
 router.post("/y/action/item/:uid", adminActions)
 router.post("/y/itemsInCategory", ItemsInCat)
 router.post("/y/allUsers", allUsers)
+router.post("/y/admin/sendMail", sendEmail)
+router.post("/y/admin/sentMail", sentEmails)
 
 router.post("*", (req,res)=>{
     return res.json({error:"Broken Pipe / Invalid Endpoint"})
