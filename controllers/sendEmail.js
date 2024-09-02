@@ -42,7 +42,7 @@ if(to === "subscribers"){
             await SendMain(email, to)
             })
         }else{
-            return res.json({"There are no subscribers"})
+            return res.json({error:"There are no subscribers"})
         }
     })
 }else if(to === "users"){
