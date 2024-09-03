@@ -39,6 +39,7 @@ const PostAd = require("../controllers/postAd");
 const getTransactions = require("../controllers/admin/getTransactions");
 const sendEmail = require("../controllers/sendEmail");
 const sentEmails = require("../controllers/sentEmails");
+const fullPageAd = require("../controllers/fullPage");
 const router = express.Router();
 router.use(express.json());
 
@@ -87,6 +88,7 @@ router.post("/y/saveProfile", saveProfile)
 router.post("/y/allListings/:uid", AllListgins) 
 router.post("/y/pendingListings/:uid", Pending)
 router.post("/y/postAd", PostAd)
+router.post("/y/fullpageAd", fullPageAd)
 
 // For Admin 
 router.post("/y/admin/login", login_admin)
