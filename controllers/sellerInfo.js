@@ -14,7 +14,7 @@ const sellerInfo = async (req,res) =>{
         return res.json({success:"IsSeller", user:result[0]});
 
       }else{
-      return res.json({success:"IsSeller", user:[]});
+      return res.json({error:"Not Seller", user:[]});
 
       }
 

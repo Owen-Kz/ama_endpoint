@@ -40,6 +40,13 @@ const getTransactions = require("../controllers/admin/getTransactions");
 const sendEmail = require("../controllers/sendEmail");
 const sentEmails = require("../controllers/sentEmails");
 const fullPageAd = require("../controllers/fullPage");
+const subscrbe = require("../controllers/subscribe");
+const subscribers = require("../controllers/admin/subscribers");
+const BrandAds = require("../controllers/admin/brandAds");
+const BrandActions = require("../controllers/admin/brandActions");
+const getBrandInfo = require("../controllers/admin/getBrandInfo");
+const sponsoredAds = require("../controllers/sponsoredAds");
+const verifyToken = require("../controllers/verifyAccount");
 const router = express.Router();
 router.use(express.json());
 
@@ -89,6 +96,8 @@ router.post("/y/allListings/:uid", AllListgins)
 router.post("/y/pendingListings/:uid", Pending)
 router.post("/y/postAd", PostAd)
 router.post("/y/fullpageAd", fullPageAd)
+router.post("/y/subscribe/", subscrbe)
+router.post("/y/sponsoredAdverts", sponsoredAds)
 
 // For Admin 
 router.post("/y/admin/login", login_admin)
@@ -98,9 +107,13 @@ router.post("/y/admin/createAnnouncement", createAnnoucements)
 router.post("/y/action/item/:uid", adminActions)
 router.post("/y/itemsInCategory", ItemsInCat)
 router.post("/y/allUsers", allUsers)
+router.post("/y/admin/subsribers", subscribers)
+router.post("/y/AllBrandAds/", BrandAds)
 router.post("/y/admin/sendMail", sendEmail)
 router.post("/y/admin/sentMail", sentEmails)
-
+router.post("/y/action/brand/:uid", BrandActions)
+router.post("/y/BrandInfo/:id", getBrandInfo)
+router.post("/y/verifyAccount", verifyToken)
 router.post("*", (req,res)=>{
     return res.json({error:"Broken Pipe / Invalid Endpoint"})
 })

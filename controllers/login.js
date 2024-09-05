@@ -22,7 +22,14 @@ const login_user = async (req, res) => {
                 const isMatch = CheckPassword(pass, result[0].password);
                 const isMatchBCrypt = await bcrypt.compare(pass, result[0].password )
 
-                if(isMatch || isMatchBCrypt){               
+                if(isMatch || isMatchBCrypt){        
+                    db.query("SELECT * FROM users WHERE (u_name = ? OR email =?) AND status = 'verified'", [user, user], async (err, verified) =>{
+                        if(err){
+                            return res.json({error:err})
+                        }
+                        if(verified[0]){
+
+
 
 
                 // create cookie token
@@ -41,9 +48,15 @@ const login_user = async (req, res) => {
                 res.cookie("uid",result[0].id, cookieOptions)
                 return res.json({ status: "success", success: "User Logged in", userToken: token, userId:result[0].id});
             }else{
+                return res.json({error:"Email Not Verified, Please verify you email to continue"})
+            }
+        })       
+            }else{
                 return res.json({ status: "error", error: "Incorrect username / password combination"})
             }
+
             }
+            
         })
 } catch (error) {
   throw new Error('Error executing query: ' + error.message);
