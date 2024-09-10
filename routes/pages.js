@@ -47,6 +47,9 @@ const BrandActions = require("../controllers/admin/brandActions");
 const getBrandInfo = require("../controllers/admin/getBrandInfo");
 const sponsoredAds = require("../controllers/sponsoredAds");
 const verifyToken = require("../controllers/verifyAccount");
+const makePayment = require("../controllers/handlePayments");
+const stripeClientKey = require("../controllers/admin/stripeClientKey");
+const StripeWEbHooks = require("../controllers/admin/stripeWebHookes");
 const router = express.Router();
 router.use(express.json());
 
@@ -114,6 +117,9 @@ router.post("/y/admin/sentMail", sentEmails)
 router.post("/y/action/brand/:uid", BrandActions)
 router.post("/y/BrandInfo/:id", getBrandInfo)
 router.post("/y/verifyAccount", verifyToken)
+router.post("/y/makePayments", makePayment)
+router.post("/y/getClientKey", stripeClientKey)
+router.post("/y/stripe/webhooks", StripeWEbHooks)
 router.post("*", (req,res)=>{
     return res.json({error:"Broken Pipe / Invalid Endpoint"})
 })
