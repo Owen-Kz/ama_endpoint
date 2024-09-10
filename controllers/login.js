@@ -21,6 +21,7 @@ const login_user = async (req, res) => {
             else{
                 const isMatch = CheckPassword(pass, result[0].password);
                 const isMatchBCrypt = await bcrypt.compare(pass, result[0].password )
+          
 
                 if(isMatch || isMatchBCrypt){        
                     db.query("SELECT * FROM users WHERE (u_name = ? OR email =?) AND status = 'verified'", [user, user], async (err, verified) =>{

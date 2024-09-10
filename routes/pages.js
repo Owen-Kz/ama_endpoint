@@ -50,8 +50,17 @@ const verifyToken = require("../controllers/verifyAccount");
 const makePayment = require("../controllers/handlePayments");
 const stripeClientKey = require("../controllers/admin/stripeClientKey");
 const StripeWEbHooks = require("../controllers/admin/stripeWebHookes");
+const bodyParser = require("body-parser");
+const forgotPassword = require("../controllers/utils/forgotPassword");
+const verifyCode = require("../controllers/utils/verifyToken");
+const createPassword = require("../controllers/utils/createPassword");
 const router = express.Router();
 router.use(express.json());
+router.use(bodyParser.json({
+    verify: (req, res, buf) => {
+      req.rawBody = buf.toString();  // Store the raw body as a string
+    }
+  }));
 
 router.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -119,7 +128,13 @@ router.post("/y/BrandInfo/:id", getBrandInfo)
 router.post("/y/verifyAccount", verifyToken)
 router.post("/y/makePayments", makePayment)
 router.post("/y/getClientKey", stripeClientKey)
-router.post("/y/stripe/webhooks", StripeWEbHooks)
+router.post("/y/forgot-password", forgotPassword)
+router.post("/y/verifyCode", verifyCode)
+router.post("/y/create-password", createPassword)
+// Add middleware to capture raw body
+
+
+router.post("/y/stripe/webhooks", StripeWEbHooks) 
 router.post("*", (req,res)=>{
     return res.json({error:"Broken Pipe / Invalid Endpoint"})
 })
