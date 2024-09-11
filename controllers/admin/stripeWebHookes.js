@@ -9,17 +9,14 @@ const stripe = Stripe(process.env.STRIPE_API_KEY); // Replace with your Stripe S
 const endpointSecret = process.env.WEBHOOK_SECRET; // You get this from your Stripe dashboard
 
 const StripeWEbHooks = async (req,res) =>{
-
+  try {
     const sig = req.headers['stripe-signature'];
 
     let event;
   
-    try {
+   
       event = stripe.webhooks.constructEvent(req.rawBody, sig, endpointSecret);
-    } catch (err) {
-      console.log(`⚠️  Webhook signature verification failed.`, err.message);
-      return res.sendStatus(400);
-    }
+
   
     // Handle the event
     if (event.type === 'checkout.session.completed') {
@@ -58,14 +55,16 @@ const StripeWEbHooks = async (req,res) =>{
               return res.sendStatus(400).json({error:err})
             }
             // return res.json({success:"Payment Confirmed"})
-            if(payment.affectedRows > 0){
-    res.sendStatus(200);  
-            }
+       
           })
         }
       })
+       res.sendStatus(200);  
     }
-  
+  } catch (err) {
+    console.log(`⚠️  Webhook signature verification failed.`, err.message);
+    return res.sendStatus(400).json({error:err.message});
+  }
 }
 
 
