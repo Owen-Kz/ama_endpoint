@@ -6,7 +6,7 @@ const getTransactions = async (req,res) =>{
     try{
         if(uid){
         if(isAdmin(uid)){
-            db.query("SELECT * FROM payments WHERE 1 ORDER BY id", (err, data) =>{
+            db.query("SELECT * FROM payments WHERE 1 ORDER BY id DESC", (err, data) =>{
                 if(err) throw err 
                 if(data){
                     return res.json({success:"Transactions", transactions:data})

@@ -17,7 +17,8 @@ const StripeWEbHooks = async (req,res) =>{
    
       event = stripe.webhooks.constructEvent(req.rawBody, sig, endpointSecret);
 
-  
+
+
     // Handle the event
     if (event.type === 'checkout.session.completed') {
       const session = event.data.object;
@@ -34,6 +35,8 @@ const StripeWEbHooks = async (req,res) =>{
       const paymentIntentId = session.payment_intent;
       const customerId = session.customer;
       const amountTotal = session.amount_total;
+ 
+  
   
       // console.log('PaymentIntent ID:', paymentIntentId);
       // console.log('Customer ID:', customerId);
@@ -43,27 +46,28 @@ const StripeWEbHooks = async (req,res) =>{
       db.query("SELECT * FROM payments WHERE payment_id = ?", [paymentIntentId], async (err,data) =>{
         if(err) {
           console.log(err)
-          return res.sendStatus(400).json({error:err})
+          res.sendStatus(400).json({error:err})
         }
         if(data.affectedRows > 0){
           console.log("Payment Already Exists")
-          return res.sendStatus(400).json({error:`Payment ${paymentIntentId} Already Exists`})
+          res.sendStatus(400)
         }else{
-          db.query("INSERT INTO payments SET ?", [{payment_id:paymentIntentId, payer_id:customerEmail, payer_email:customerEmail, amount:amountTotal, payment_status:paymentStatus, currency:Currency }], async (err,payment) =>{
+          db.query("INSERT INTO payments SET ?", [{payment_id:paymentIntentId, payer_id:customerEmail, payer_email:customerEmail, amount:amountTotal, payment_status:paymentStatus, currency:Currency}], async (err,payment) =>{
             if(err){
               console.log(err)
-              return res.sendStatus(400).json({error:err})
+              res.sendStatus(400)
             }
-            // return res.json({success:"Payment Confirmed"})
+            // res.json({success:"Payment Confirmed"})
        
           })
         }
       })
-       res.sendStatus(200);  
+       
     }
+    res.sendStatus(200);  
   } catch (err) {
     console.log(`⚠️  Webhook signature verification failed.`, err.message);
-    return res.sendStatus(400).json({error:err.message});
+    res.sendStatus(400)
   }
 }
 
