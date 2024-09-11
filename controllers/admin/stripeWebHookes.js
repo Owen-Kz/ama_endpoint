@@ -46,24 +46,26 @@ const StripeWEbHooks = async (req,res) =>{
       db.query("SELECT * FROM payments WHERE payment_id = ?", [paymentIntentId], async (err,data) =>{
         if(err) {
           console.log(err)
-          return res.json({error:err})
+          return res.sendStatus(400).json({error:err})
         }
         if(data.affectedRows > 0){
           console.log("Payment Already Exists")
-          return res.json({error:`Payment ${paymentIntentId} Already Exists`})
+          return res.sendStatus(400).json({error:`Payment ${paymentIntentId} Already Exists`})
         }else{
           db.query("INSERT INTO payments SET ?", [{payment_id:paymentIntentId, payer_id:customerEmail, payer_email:customerEmail, amount:amountTotal, payment_status:paymentStatus, currency:Currency }], async (err,payment) =>{
             if(err){
               console.log(err)
-              return res.json({error:err})
+              return res.sendStatus(400).json({error:err})
             }
             // return res.json({success:"Payment Confirmed"})
+            if(payment.affectedRows > 0){
+    res.sendStatus(200);  
+            }
           })
         }
       })
     }
   
-    res.sendStatus(200);  
 }
 
 
