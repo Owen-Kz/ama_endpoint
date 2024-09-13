@@ -54,6 +54,11 @@ const bodyParser = require("body-parser");
 const forgotPassword = require("../controllers/utils/forgotPassword");
 const verifyCode = require("../controllers/utils/verifyToken");
 const createPassword = require("../controllers/utils/createPassword");
+const staticAd = require("../controllers/staticAdvert");
+const PostBrandAdvert = require("../controllers/postBrandAdvert");
+const getSlideShowAdvert = require("../controllers/getSlideShowAdvert");
+const PostFullPageADvert = require("../controllers/postFulPageAd");
+const FullPageActions = require("../controllers/admin/fullPageActions");
 const router = express.Router();
 router.use(express.json());
 router.use(bodyParser.json({
@@ -107,9 +112,14 @@ router.post("/y/saveProfile", saveProfile)
 router.post("/y/allListings/:uid", AllListgins) 
 router.post("/y/pendingListings/:uid", Pending)
 router.post("/y/postAd", PostAd)
+router.post("/y/postBrandAd", PostBrandAdvert )
+router.post("/y/postFullpageAd", PostFullPageADvert)
 router.post("/y/fullpageAd", fullPageAd)
 router.post("/y/subscribe/", subscrbe)
 router.post("/y/sponsoredAdverts", sponsoredAds)
+router.post("/y/staticAdverts", staticAd)
+router.get("/y/slideshowAdverts", getSlideShowAdvert)
+
 
 // For Admin 
 router.post("/y/admin/login", login_admin)
@@ -124,6 +134,7 @@ router.post("/y/AllBrandAds/", BrandAds)
 router.post("/y/admin/sendMail", sendEmail)
 router.post("/y/admin/sentMail", sentEmails)
 router.post("/y/action/brand/:uid", BrandActions)
+router.post("/y/action/fullpage/:uid", FullPageActions)
 router.post("/y/BrandInfo/:id", getBrandInfo)
 router.post("/y/verifyAccount", verifyToken)
 router.post("/y/makePayments", makePayment)

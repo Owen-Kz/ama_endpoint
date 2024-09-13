@@ -1,14 +1,14 @@
 const db = require("../../routes/db.config")
 const isAdmin = require("./isAdmin")
 
-const BrandActions = async (req,res) =>{
+const FullPageActions = async (req,res) =>{
     const uid = req.params.uid
     try{
     if(uid){
         const {action, itemID} = req.body
     if(isAdmin(uid)){
         function DoAction(doAction){
-            db.query("UPDATE brand_adverts SET ? WHERE item_id =  ?", [{status:doAction}, itemID], async (err, action)=>{
+            db.query("UPDATE full_page_advert  SET ? WHERE id =  ?", [{status:doAction}, itemID], async (err, action)=>{
                 if(err){
                     return res.json({error:err})
                 }else if(action.changedRows > 0){
@@ -17,14 +17,14 @@ const BrandActions = async (req,res) =>{
         })
         }
         
-        db.query("SELECT * FROM brand_adverts WHERE item_id = ?", [itemID], async(err, data) =>{
+        db.query("SELECT * FROM full_page_advert WHERE id = ?", [itemID], async(err, data) =>{
             if(err){
                 return res.json({error:err})
             }
             if(data[0]){
                 
                 if(action === "approved"){
-                   DoAction("approved")
+                   DoAction("active")
                 }else if(action === "reject"){
                     DoAction("rejected")
                 }else{
@@ -45,4 +45,4 @@ const BrandActions = async (req,res) =>{
 }
 
 
-module.exports = BrandActions
+module.exports = FullPageActions

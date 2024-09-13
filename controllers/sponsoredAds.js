@@ -2,7 +2,7 @@ const db = require("../routes/db.config")
 
 const sponsoredAds = async (req,res) =>{
     try{
-        db.query("SELECT * FROM brand_adverts WHERE type = 'sponsored' AND status = 'approved'", (err, data) =>{
+        db.query("SELECT * FROM brand_adverts WHERE type = 'sponsored_advert' AND status = 'approved'", (err, data) =>{
             if(err){
                 return res.json({error:err})
             }
