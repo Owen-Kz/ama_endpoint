@@ -6,8 +6,6 @@ const PostFullPageADvert = async (req, res) => {
     async function GenerateRandomCode(){
         return Math.floor(100000 + Math.random() * 900000);
     }
-
-    console.log(advert_duration)
  
 db.query("SELECT * FROM full_page_advert WHERE status = 'active'", async (err,data) =>{
 if(err){
@@ -32,7 +30,7 @@ if(data[0]){
 
           try {
      
-            return res.json({ success: "Listing Uploaded Successfully" });
+            return res.json({ success: "Listing Uploaded Successfully", item_id:inserted.insertId});
           } catch (err) {
             console.log("INTERNAL ERROR: ", err)
             return res.json({ error: err });
