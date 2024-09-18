@@ -27,7 +27,17 @@ const FullPageActions = async (req,res) =>{
                    DoAction("active")
                 }else if(action === "reject"){
                     DoAction("rejected")
-                }else{
+                }else if(action === "delete"){
+                    db.query("DELETE FROM full_page_advert WHERE id =?", [itemID], async (err, deleted) =>{
+                        if(err){
+                            return res.json({error:err})
+                        }else if(deleted.affectedRows > 0){
+                            res.json({success:"Advert Deleted Successfully"})
+                        }
+
+                    })
+                }
+                else{
                     return res.json({error:`No Valid Action Provided ${action}`})
                 }
             }
