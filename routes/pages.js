@@ -59,6 +59,7 @@ const PostBrandAdvert = require("../controllers/postBrandAdvert");
 const getSlideShowAdvert = require("../controllers/getSlideShowAdvert");
 const PostFullPageADvert = require("../controllers/postFulPageAd");
 const FullPageActions = require("../controllers/admin/fullPageActions");
+const updateItem = require("../controllers/updateAdvert");
 const router = express.Router();
 router.use(express.json());
 router.use(bodyParser.json({
@@ -114,6 +115,7 @@ router.post("/y/pendingListings/:uid", Pending)
 router.post("/y/postAd", PostAd)
 router.post("/y/postBrandAd", PostBrandAdvert )
 router.post("/y/postFullpageAd", PostFullPageADvert)
+router.post("/y/updateAdvert", updateItem)
 router.post("/y/fullpageAd", fullPageAd)
 router.post("/y/subscribe/", subscrbe)
 router.post("/y/sponsoredAdverts", sponsoredAds)

@@ -12,7 +12,6 @@ const getProductInfo  = async (req,res) =>{
          // Find the Sub Category of profucts 
          let SubCategories = ""
          let AllFiles = ""
-   
 
         db.query('SELECT * FROM sub_categories WHERE item_id =?',[id], async (err, categories) =>{
             if(err) return res.json({error:err})

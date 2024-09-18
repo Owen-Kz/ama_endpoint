@@ -62,8 +62,8 @@ const PostBrandAdvert = async (req, res) => {
                 "INSERT INTO sub_categories SET ?",
                 [{ item_id: newID, category_name: subCategories }],
                 (err, subs) => {
-                  if (err) return res.json({ error: err });
-                  console.log("Category Created");
+                  if (err) return reject(err);
+                      resolve(subs);
                 }
               );
             }
