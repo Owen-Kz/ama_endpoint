@@ -15,7 +15,7 @@ const DeleteItem = async (req,res) =>{
                     }
                     else{
                         res.json({success:"DeleteItemSuccesfully"})
-                    }
+                    } 
             })
             }else{
                 res.json({error:"Item Does Not Exist or is Already  sold out"})

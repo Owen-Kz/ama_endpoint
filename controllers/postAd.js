@@ -48,8 +48,9 @@ const PostAd = async (req, res) => {
                 "INSERT INTO sub_categories SET ?",
                 [{ item_id: newID, category_name: subCategories }],
                 (err, subs) => {
-                  if (err) return reject(err);
-                      resolve(subs);
+                  if (err) {
+                    console.log(err)
+                  }
                 }
               );
             }
