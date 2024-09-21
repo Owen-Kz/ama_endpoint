@@ -30,9 +30,6 @@ const login_user = async (req, res) => {
                         }
                         if(verified[0]){
 
-
-
-
                 // create cookie token
                 const token = jwt.sign({id: result[0].id}, process.env.JWT_SECRET, {
                     expiresIn: process.env.JWT_EXPIRES

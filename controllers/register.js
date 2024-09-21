@@ -68,7 +68,7 @@ try{
                         <p>Hello, ${username}</p>
                         <p>
                         
-                        Click <a href="${process.env.CurrentDOMAIN}/verify?q=${bufferToken}">Here</a> or pase the link below in you browser to verify your account</p>
+                        Click <a href="${process.env.CurrentDOMAIN}/verify?q=${bufferToken}">Here</a> or paste the link below in you browser to verify your account</p>
                         <p><a href="${process.env.CurrentDOMAIN}/verify?q=${bufferToken}">${process.env.CurrentDOMAIN}/verify?q=${bufferToken}</a>
                         <p>${currentYear} (c) Amaslink.com
                         </body></html>`
