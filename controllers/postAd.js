@@ -9,6 +9,7 @@ const PostAd = async (req, res) => {
       [{ title, description, country, price, category, image1: thumbnail, user_id: uid, is_recent_item:"yes", condition:condition, purpose:purpose }],
       async (err, inserted) => {
         if (err) {
+          console.log(err)
           return res.json({ error: err });
         }
   
@@ -63,7 +64,10 @@ const PostAd = async (req, res) => {
                   "INSERT INTO files SET ?",
                   [{ item_id: newID, file_type: "image_file", file_status: "new_submission", file_url: file }],
                   (err, imageInsert) => {
-                    if (err) return reject(err);
+                    if (err) {
+                      console.log(err) 
+                      return reject(err);
+                    }
                     resolve(imageInsert);
                   }
                 );
@@ -78,7 +82,11 @@ const PostAd = async (req, res) => {
                   "INSERT INTO files SET ?",
                   [{ item_id: newID, file_type: "video_url", file_status: "new_submission", file_url: videoURL }],
                   (err, videoURLInsert) => {
-                    if (err) return reject(err);
+                    if (err) {
+                      console.log(err) 
+                      return reject(err);
+                    }
+                    
                     resolve(videoURLInsert);
                   }
                 );
@@ -99,7 +107,7 @@ const PostAd = async (req, res) => {
               });
             }
 
-            return res.json({ success: "Listing Uploaded Successfully" , item_id:inserted.insertId});
+            return res.json({ success: "Item Saved Proceed to payment" , item_id:inserted.insertId});
           } catch (err) {
             console.log("INTERNAL ERROR: ", err)
             return res.json({ error: err });

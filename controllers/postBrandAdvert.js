@@ -113,7 +113,7 @@ const PostBrandAdvert = async (req, res) => {
               });
             }
 
-            return res.json({ success: "Listing Uploaded Successfully" , item_id:inserted.insertId});
+            return res.json({ success: "Item Saved Proceed to make peyment" , item_id:inserted.insertId});
           } catch (err) {
             console.log("INTERNAL ERROR: ", err)
             return res.json({ error: err });

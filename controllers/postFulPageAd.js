@@ -30,7 +30,7 @@ if(data[0]){
 
           try {
      
-            return res.json({ success: "Listing Uploaded Successfully", item_id:inserted.insertId});
+            return res.json({ success: "Item Saved Proceed to make payment", item_id:inserted.insertId});
           } catch (err) {
             console.log("INTERNAL ERROR: ", err)
             return res.json({ error: err });

@@ -4,10 +4,10 @@ const saveProfile = async (req, res) => {
     const { u_id, field, value } = req.body;
 
     // Whitelist allowed fields to prevent SQL injection
-    const allowedFields = ['name', 'email', 'password', 'phone', 'u_name', 'l_name']; // Add all valid fields here
+    const allowedFields = ['name', 'email', 'password', 'phone', 'u_name', 'l_name', 'country', 'pp']; // Add all valid fields here
     if (!allowedFields.includes(field)) {
         return res.status(400).json({ error: "Invalid field" });
-    }
+    } 
 
     try {
         // Check if the value already exists for another user
@@ -15,7 +15,6 @@ const saveProfile = async (req, res) => {
             if (err) {
                 return res.json({ error: err.message });
             }
-
             if (data.length > 0) {
                 return res.json({ error: `The ${field} is already owned by another user.` });
             }
