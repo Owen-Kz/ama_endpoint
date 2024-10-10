@@ -47,5 +47,5 @@ if(data[0]){
     return res.json({ error: error });
   }
 };
-
+ 
 module.exports = PostFullPageADvert;

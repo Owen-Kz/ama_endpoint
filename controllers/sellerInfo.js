@@ -2,7 +2,6 @@ const db = require("../routes/db.config");
 
 const sellerInfo = async (req,res) =>{
    const {id} = req.body
-   
   try {
     // Decrypt the cookie and retrieve user data with the id
     db.query("SELECT id, u_name, email, created_at, updated_at, name, phone, country, email_verified_at, fb, twitter, flickr, insta, ytube, vimeo, behance, linkd, web, l_name, pp FROM users WHERE id = ? ", [id], (err, result) => {

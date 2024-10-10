@@ -12,15 +12,17 @@ const bodyParser = require("body-parser");
 
 // app.use(bodyParser.json());
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true, limit: '100mb'}));
 app.use(bodyParser.json({
     verify: function (req, res, buf) {
       req.rawBody = buf;
-    }
+    }, limit: '100mb', extended:true
   }));
-app.use(express.urlencoded({ extended: true }));
+    
 app.use(cookie());
-app.use(express.json());
+  app.use(express.json({ limit: '100mb' })); // For JSON bodies
+  app.use(express.urlencoded({ limit: '100mb', extended: true })); // For URL-encoded bodies
+
 
 
 
