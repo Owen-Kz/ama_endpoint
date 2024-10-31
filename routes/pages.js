@@ -60,6 +60,7 @@ const getSlideShowAdvert = require("../controllers/getSlideShowAdvert");
 const PostFullPageADvert = require("../controllers/postFulPageAd");
 const FullPageActions = require("../controllers/admin/fullPageActions");
 const updateItem = require("../controllers/updateAdvert");
+const getReferrals = require("../controllers/referrrals/getReferrals");
 const router = express.Router();
 router.use(express.json());
 router.use(bodyParser.json({
@@ -144,6 +145,7 @@ router.post("/y/getClientKey", stripeClientKey)
 router.post("/y/forgot-password", forgotPassword)
 router.post("/y/verifyCode", verifyCode)
 router.post("/y/create-password", createPassword)
+router.post("/y/getReferrals", getReferrals)
 // Add middleware to capture raw body
 
 

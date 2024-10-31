@@ -4,6 +4,7 @@ const db = require('../routes/db.config');
 const bcrypt = require("bcryptjs");
 const SibApiV3Sdk = require('sib-api-v3-sdk');
 const { configDotenv } = require('dotenv');
+const saveReferral = require('./referrrals/saveReferral');
 
 const client = SibApiV3Sdk.ApiClient.instance;
 
@@ -32,7 +33,7 @@ try{
         const response = await apiInstance.sendTransacEmail(email);
     }
 
-    const { username, firstname, lastname, email, phonenumber, country, password } = req.body;
+    const { username, firstname, lastname, email, phonenumber, country, password, referralCode} = req.body;
     const hPassword = await bcrypt.hash(password, 8);
 
     const bufferToken = await getRandomString()
@@ -45,40 +46,61 @@ try{
             if(result[0]){
                 res.json({error:"User Already Exists"})
             }else {
-                db.query('INSERT INTO users SET ?',{
-                    u_name:username,
-                    email:email,
-                    name:firstname,
-                    l_name:lastname,
-                    phone:phonenumber,
-                    country:country, 
-                    password:hPassword, 
-                    remember_token:bufferToken,
-                    } , async (err, result) =>{
-                    if(err){
-                        console.log(err)
-                    }
-                    const emailBody = {
-                        // to: [{ email: to, name: 'Recipient Name' }],
-                        to: [{ email: email, name: username}],
-                
-                        sender: { email: 'amaslink@amaslink.com', name: 'Amaslink' },
-                        subject: "Amaslink Account Verification",
-                        htmlContent: `<html><body>
-                        <p>Hello, ${username}</p>
-                        <p>
-                        
-                        Click <a href="${process.env.CurrentDOMAIN}/verify?q=${bufferToken}">Here</a> or paste the link below in you browser to verify your account</p>
-                        <p><a href="${process.env.CurrentDOMAIN}/verify?q=${bufferToken}">${process.env.CurrentDOMAIN}/verify?q=${bufferToken}</a>
-                        <p>${currentYear} (c) Amaslink.com
-                        </body></html>`
-                };
-                    if(result){
-                        SendMain(emailBody, email)
-                        res.json({success:"Account Created Succesfully"})
-                    }
+               function FinalCreateAccount() {
+                    db.query('INSERT INTO users SET ?',{
+                        u_name:username,
+                        email:email,
+                        name:firstname,
+                        l_name:lastname,
+                        phone:phonenumber,
+                        country:country, 
+                        password:hPassword, 
+                        remember_token:bufferToken,
+                        } , async (err, result) =>{
+                        if(err){
+                            console.log(err)
+                        }
+                        const emailBody = {
+                            // to: [{ email: to, name: 'Recipient Name' }],
+                            to: [{ email: email, name: username}],
                     
-                })
+                            sender: { email: 'amaslink@amaslink.com', name: 'Amaslink' },
+                            subject: "Amaslink Account Verification",
+                            htmlContent: `<html><body>
+                            <p>Hello, ${username}</p>
+                            <p>
+                            
+                            Click <a href="${process.env.CurrentDOMAIN}/verify?q=${bufferToken}">Here</a> or paste the link below in you browser to verify your account</p>
+                            <p><a href="${process.env.CurrentDOMAIN}/verify?q=${bufferToken}">${process.env.CurrentDOMAIN}/verify?q=${bufferToken}</a>
+                            <p>${currentYear} (c) Amaslink.com
+                            </body></html>`
+                    };
+                        if(result){
+                            if(referralCode && referralCode !== ""){
+                            saveReferral(result.insertId, referralCode)
+                            }
+                            SendMain(emailBody, email)
+                            res.json({success:"Account Created Succesfully"})
+                        }
+                        
+                    })
+                }
+                // Vaalidate Referal Code 
+                if(referralCode && referralCode !== ""){
+                    db.query("SELECT referral_code FROM users WHERE referral_code = ?", [referralCode], async (err,code) =>{
+                        if(err){
+                            console.log(err)
+                            return res.json({error:err})
+                        }else if(code[0]){
+                            FinalCreateAccount()
+                        }else{
+                            return res.json({error:"Invalid Referral Code Provided"})
+                        }
+                    })
+                }else{
+                    FinalCreateAccount()
+                }
+               
             }
         })
     }

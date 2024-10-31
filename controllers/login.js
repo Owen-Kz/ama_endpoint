@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
 const { CheckPassword, HashPassword } = require('wordpress-hash-node');
+const generateCode = require("./utils/generateReferalCode");
 
 const login_user = async (req, res) => {
    
@@ -29,6 +30,8 @@ const login_user = async (req, res) => {
                             return res.json({error:err})
                         }
                         if(verified[0]){
+
+                            await generateCode(verified[0].email)
 
                 // create cookie token
                 const token = jwt.sign({id: result[0].id}, process.env.JWT_SECRET, {
