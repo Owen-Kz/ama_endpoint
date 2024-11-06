@@ -61,6 +61,8 @@ const PostFullPageADvert = require("../controllers/postFulPageAd");
 const FullPageActions = require("../controllers/admin/fullPageActions");
 const updateItem = require("../controllers/updateAdvert");
 const getReferrals = require("../controllers/referrrals/getReferrals");
+const SaveAnalytics = require("../controllers/analytics/saveAbalytics");
+const getAnalytics = require("../controllers/analytics/getAnalytics");
 const router = express.Router();
 router.use(express.json());
 router.use(bodyParser.json({
@@ -146,6 +148,8 @@ router.post("/y/forgot-password", forgotPassword)
 router.post("/y/verifyCode", verifyCode)
 router.post("/y/create-password", createPassword)
 router.post("/y/getReferrals", getReferrals)
+router.post("/y/create-analytics", SaveAnalytics)
+router.post("/y/getAnalytics", getAnalytics)
 // Add middleware to capture raw body
 
 
