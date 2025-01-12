@@ -39,7 +39,7 @@ const adminActions = async (req,res) =>{
                                     const email = {
                                         // to: [{ email: to, name: 'Recipient Name' }],
                                         to: [{ email: UserEmail, name: username}],
-                                
+                                 
                                         sender: { email: 'amaslink@amaslink.com', name: 'Amaslink' },
                                         subject: "Amaslink Listings",
                                         htmlContent: `<html><body>

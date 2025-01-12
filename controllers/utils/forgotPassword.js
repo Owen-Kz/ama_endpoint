@@ -41,7 +41,7 @@ apiKey.apiKey = process.env.BREVO_API;
                         sender: { email: 'amaslink@amaslink.com', name: 'Amaslink' },
                         subject: "Password Reset Token",
                         htmlContent: `<html><body>
-                        <p>Hellow, ${username}, Your 6-digit reset code is </p>
+                        <p>Hello, ${username}, Your 6-digit reset code is </p>
                         <p><h4>${resetCOde}</h4></p>
                         <p>Ignore if you didn't make this request</p>
                         <p>${currentYear} (c) Amaslink.com
