@@ -63,6 +63,9 @@ const updateItem = require("../controllers/updateAdvert");
 const getReferrals = require("../controllers/referrrals/getReferrals");
 const SaveAnalytics = require("../controllers/analytics/saveAbalytics");
 const getAnalytics = require("../controllers/analytics/getAnalytics");
+const CheckFreeAdverts = require("../controllers/advertManagements/checkFreeAdverts");
+const CreateFreeAdvertEntry = require("../controllers/advertManagements/createFreeAdvertEntry");
+const createPaidAdvertEntry = require("../controllers/advertManagements/createPaidAdvert");
 const router = express.Router();
 router.use(express.json());
 router.use(bodyParser.json({
@@ -151,6 +154,12 @@ router.post("/y/getReferrals", getReferrals)
 router.post("/y/create-analytics", SaveAnalytics)
 router.post("/y/getAnalytics", getAnalytics)
 // Add middleware to capture raw body
+
+// Check free averts 
+router.post("/y/checkFreeAds", CheckFreeAdverts)
+router.post("/y/createFreeAdvert", CreateFreeAdvertEntry)
+router.post("/y/createPaidAdvertEntry", createPaidAdvertEntry)
+// router.post("/y/checkPaidAds")
 
 
 router.post("/y/stripe/webhooks", StripeWEbHooks) 
