@@ -66,6 +66,7 @@ const getAnalytics = require("../controllers/analytics/getAnalytics");
 const CheckFreeAdverts = require("../controllers/advertManagements/checkFreeAdverts");
 const CreateFreeAdvertEntry = require("../controllers/advertManagements/createFreeAdvertEntry");
 const createPaidAdvertEntry = require("../controllers/advertManagements/createPaidAdvert");
+const setToExpired = require("../controllers/advertManagements/setToExpired");
 const router = express.Router();
 router.use(express.json());
 router.use(bodyParser.json({
@@ -159,7 +160,7 @@ router.post("/y/getAnalytics", getAnalytics)
 router.post("/y/checkFreeAds", CheckFreeAdverts)
 router.post("/y/createFreeAdvert", CreateFreeAdvertEntry)
 router.post("/y/createPaidAdvertEntry", createPaidAdvertEntry)
-// router.post("/y/checkPaidAds")
+router.post("/y/setToExpired", setToExpired)
 
 
 router.post("/y/stripe/webhooks", StripeWEbHooks) 
