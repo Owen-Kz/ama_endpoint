@@ -15,7 +15,7 @@ const setToExpired = async (req, res) => {
                             UPDATE listings
                             SET status = 'sold/expired'
                             WHERE id = ?
-                            AND created_at < NOW() - INTERVAL 3 MONTH
+                            AND created_at < NOW() - INTERVAL 1 MONTH
                             AND status = 'approved';`;
 
                         db.query(query, [item.item_id], (err, result) => {
