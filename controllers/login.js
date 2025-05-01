@@ -4,11 +4,12 @@ const bcrypt = require("bcryptjs");
 
 const { CheckPassword, HashPassword } = require('wordpress-hash-node');
 const generateCode = require("./utils/generateReferalCode");
+const dbPromise = require("../routes/dbPromise.config");
 
 const login_user = async (req, res) => {
    
 
-    const { user, pass } = req.body;
+    const { user, pass, country, currency, location, callingCode } = req.body;
 
     if(!user|| !pass) return res.json({ status: "error", error: "Please fill all fields"});
 
@@ -43,6 +44,10 @@ const login_user = async (req, res) => {
                     expiresIn: new Date(Date.now() + process.env.COOKIE_EXPIRES * 24 * 60 * 60 * 1000),
                     httpOnly: true
                 }
+
+                // Update location 
+                  const updateLocation = await dbPromise.query("UPDATE users SET ? WHERE id = ?",[{country, currency, location, callingCode}, result[0].id])
+      
                 // save cookie 
              
                 res.cookie("userRegistered", token, cookieOptions)
@@ -60,7 +65,8 @@ const login_user = async (req, res) => {
             
         })
 } catch (error) {
-  throw new Error('Error executing query: ' + error.message);
+//   throw new Error('Error executing query: ' + error.message);
+  return res.json({ status: "error", error:"Internal Server Error"})
 }
     }
 

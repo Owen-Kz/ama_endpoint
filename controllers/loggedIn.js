@@ -1,6 +1,7 @@
 
 const jwt = require("jsonwebtoken");
 const db = require("../routes/db.config");
+const dbPromise = require("../routes/dbPromise.config");
 const LoggedIn = (req, res, next) => {
     const {token} = req.body
   if (!token) {
@@ -12,13 +13,26 @@ const LoggedIn = (req, res, next) => {
     // Decrypt the cookie and retrieve user data with the id
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    db.query("SELECT * FROM users WHERE id = ? ", [decoded.id], (err, result) => {
+    db.query("SELECT * FROM users WHERE id = ? ", [decoded.id], async (err, result) => {
       if (err) {
         console.log(err);
         return res.json({error:"Could Not Get data"}) // Redirect to home on error
       }
+      let CurrencyRate = ""
+      const getCurrentExchangeRate = await dbPromise.query("SELECT * FROM exchange_rates WHERE country = ? AND currency = ?",[result[0].country, result[0].currency])
 
-      return res.json({success:"IsLoggedIn", user:result[0]});
+      if(getCurrentExchangeRate[0].length > 0){
+        CurrencyRate = getCurrentExchangeRate[0][0]
+      }else{
+        CurrencyRate = {
+          currency: "USD",
+          current_rate: "1",
+          country: "USA"
+        }
+      }
+
+
+      return res.json({success:"IsLoggedIn", user:result[0], CurrencyRate});
     //   next();
     });
   } catch (error) {

@@ -67,6 +67,9 @@ const CheckFreeAdverts = require("../controllers/advertManagements/checkFreeAdve
 const CreateFreeAdvertEntry = require("../controllers/advertManagements/createFreeAdvertEntry");
 const createPaidAdvertEntry = require("../controllers/advertManagements/createPaidAdvert");
 const setToExpired = require("../controllers/advertManagements/setToExpired");
+const saveWalletTransaction = require("../controllers/wallet/SaveWaletTransaction");
+const updateExchangeRate = require("../controllers/countries/updateExchangeRates");
+const chargeWalletBalance = require("../controllers/wallet/chargeWallet");
 const router = express.Router();
 router.use(express.json());
 router.use(bodyParser.json({
@@ -161,9 +164,12 @@ router.post("/y/checkFreeAds", CheckFreeAdverts)
 router.post("/y/createFreeAdvert", CreateFreeAdvertEntry)
 router.post("/y/createPaidAdvertEntry", createPaidAdvertEntry)
 router.post("/y/setToExpired", setToExpired)
+router.post("/y/updateExchangeRate", updateExchangeRate)
 
 
 router.post("/y/stripe/webhooks", StripeWEbHooks) 
+router.post("/y/saveWalletTransaction", saveWalletTransaction)
+router.post("/y/ChargeWallet", chargeWalletBalance)
 router.post("*", (req,res)=>{
     return res.json({error:"Broken Pipe / Invalid Endpoint"})
 })

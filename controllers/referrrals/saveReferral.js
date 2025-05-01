@@ -2,7 +2,7 @@ const db = require("../../routes/db.config")
 
 const saveReferral = async (userId, referral_id) =>{
     try{
-    db.query("SELECT *  FROM referrals WHERE referred_user = ? AND referral_id =?", [userId, referral_id], async (Err, data)=>{
+    db.query("SELECT * FROM referrals WHERE referred_user = ? AND referral_id =?", [userId, referral_id], async (Err, data)=>{
         if(Err){
             console.log(Err)
         }else if(data[0]){
