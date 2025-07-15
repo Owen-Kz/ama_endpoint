@@ -11,7 +11,7 @@ const CreateFreeAdvertEntry = async(req,res) =>{
                         console.log(err)
                         return res.json({error:err})
                     }else{
-                        return res.json({success:"Free advert entry created successfully"})
+                        return res.json({success:"basic advert entry created successfully"})
                     }
                 })
     

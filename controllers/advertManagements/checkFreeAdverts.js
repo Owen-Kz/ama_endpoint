@@ -14,15 +14,15 @@ const CheckFreeAdverts = async(req,res) =>{
                         console.log(err)
                         return res.json({error:err})
                     }else if(paid.length < result.length){
-                        return res.json({error:"You have reached the maximum number of free adverts you can create, create 3 paid advert to get one more free advert"})
+                        return res.json({error:"You have reached the maximum number of basic adverts you can create, create 3 paid advert to get one more basic advert"})
                     }else if(paid.length > result.length ){
-                        return res.json({success:"You can create a free advert"})
+                        return res.json({success:"You can create an advert"})
                     }
     
                 })
-                // return res.json({error:"You have reached the maximum number of free adverts you can create"}
+                // return res.json({error:"You have reached the maximum number of basic adverts you can create"}
             }else if(result.length <= 3){
-               return res.json({success:"You can create a free advert"})
+               return res.json({success:"You can create an advert"})
             }else{
                 console.log(result.length)
             }
